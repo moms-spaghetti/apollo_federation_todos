@@ -21,20 +21,24 @@ const resolvers = {
   Query: {
     allUsers: (_, __, { allUsers }) => allUsers(),
     findUser: (_, { id }, { findUser }) => findUser(id),
-    totalUsers: (_, __) => totalUsers(),
+    totalUsers: (_, __, { totalUsers }) => totalUsers(),
   },
 };
 
-const server = new ApolloServer({
-  schema: buildSubgraphSchema({ typeDefs, resolvers }),
-  plugins: [ApolloServerPluginInlineTraceDisabled()],
-  context: (_) => ({
-    allUsers,
-    findUser,
-    totalUsers,
-  }),
-});
+const start = async () => {
+  const server = new ApolloServer({
+    schema: buildSubgraphSchema({ typeDefs, resolvers }),
+    plugins: [ApolloServerPluginInlineTraceDisabled()],
+    context: (_) => ({
+      allUsers,
+      findUser,
+      totalUsers,
+    }),
+  });
 
-server.listen(process.env.PORT).then(({ url }) => {
-  console.log(`Users service started on: ${url}`);
-});
+  server.listen(process.env.PORT).then(({ url }) => {
+    console.log(`Users service started on: ${url}`);
+  });
+};
+
+start();

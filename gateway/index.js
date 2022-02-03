@@ -10,7 +10,7 @@ const gateway = new ApolloGateway({
   }),
 });
 
-const start = async (_) => {
+const start = async () => {
   const server = new ApolloServer({
     gateway,
   });
