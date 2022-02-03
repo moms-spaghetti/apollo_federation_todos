@@ -1,7 +1,7 @@
 const { ApolloServer, gql } = require("apollo-server");
 const { buildSubgraphSchema } = require("@apollo/subgraph");
 const { ApolloServerPluginInlineTraceDisabled } = require("apollo-server-core");
-const { allUsers, findUser } = require("./lib");
+const { allUsers, findUser, totalUsers } = require("./lib");
 
 const typeDefs = gql`
   type User {
@@ -12,14 +12,16 @@ const typeDefs = gql`
 
   type Query {
     allUsers: [User!]!
-    user(id: ID!): User!
+    findUser(id: ID!): User!
+    totalUsers: Int!
   }
 `;
 
 const resolvers = {
   Query: {
     allUsers: (_, __, { allUsers }) => allUsers(),
-    user: (_, { id }, { findUser }) => findUser(id),
+    findUser: (_, { id }, { findUser }) => findUser(id),
+    totalUsers: (_, __) => totalUsers(),
   },
 };
 
@@ -29,6 +31,7 @@ const server = new ApolloServer({
   context: (_) => ({
     allUsers,
     findUser,
+    totalUsers,
   }),
 });
 
