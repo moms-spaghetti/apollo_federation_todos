@@ -1,5 +1,4 @@
 const { ApolloServer, gql } = require("apollo-server");
-const todos = require("./todos-data.json");
 const { buildSubgraphSchema } = require("@apollo/subgraph");
 const { ApolloServerPluginInlineTraceDisabled } = require("apollo-server-core");
 const { allTodos, findTodo } = require("../context/lib");
@@ -19,7 +18,7 @@ const typeDefs = gql`
 
   type Query {
     allTodos: [Todo!]!
-    findTodo(id: ID!): [Todo!]
+    findTodo(id: ID!): Todo!
   }
 `;
 

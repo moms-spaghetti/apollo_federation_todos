@@ -6,6 +6,6 @@ const findUser = (id) => users.find((u) => u.id === id);
 const totalUsers = () => users.length;
 
 const allTodos = () => todos;
-const findTodo = (id) => todos.filter((todo) => todo.id === id);
+const findTodo = (id) => todos.find((t) => t.id === id);
 
 module.exports = { findUser, allUsers, totalUsers, allTodos, findTodo };
