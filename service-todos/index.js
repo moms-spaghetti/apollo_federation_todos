@@ -32,15 +32,19 @@ const resolvers = {
   },
 };
 
-const server = new ApolloServer({
-  schema: buildSubgraphSchema({ typeDefs, resolvers }),
-  plugins: [ApolloServerPluginInlineTraceDisabled()],
-  context: () => ({
-    allTodos,
-    findTodo,
-  }),
-});
+const start = async () => {
+  const server = new ApolloServer({
+    schema: buildSubgraphSchema({ typeDefs, resolvers }),
+    plugins: [ApolloServerPluginInlineTraceDisabled()],
+    context: () => ({
+      allTodos,
+      findTodo,
+    }),
+  });
 
-server.listen(process.env.PORT).then(({ url }) => {
-  console.log(`Todos service started on: ${url}`);
-});
+  server.listen(process.env.PORT).then(({ url }) => {
+    console.log(`Todos service started on: ${url}`);
+  });
+};
+
+start();
