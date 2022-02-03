@@ -1,7 +1,7 @@
 const { ApolloServer, gql } = require("apollo-server");
 const { buildSubgraphSchema } = require("@apollo/subgraph");
 const { ApolloServerPluginInlineTraceDisabled } = require("apollo-server-core");
-const { allUsers, findUser, totalUsers } = require("./lib");
+const { allUsers, findUser, totalUsers } = require("../context/lib");
 
 const typeDefs = gql`
   type User {
