@@ -1,5 +1,5 @@
 const { ApolloServer, gql } = require("apollo-server");
-const todos = require("./todos.json");
+const todos = require("./todos-data.json");
 const { buildSubgraphSchema } = require("@apollo/subgraph");
 const { ApolloServerPluginInlineTraceDisabled } = require("apollo-server-core");
 
@@ -23,7 +23,7 @@ const typeDefs = gql`
 
 const resolvers = {
   Query: {
-    allTodos: (root, { id }) =>
+    allTodos: (_, { id }) =>
       !id ? todos : todos.filter((todo) => todo.id === id),
   },
   User: {

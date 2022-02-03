@@ -1,7 +1,7 @@
 const { ApolloServer, gql } = require("apollo-server");
-const users = require("./users.json");
 const { buildSubgraphSchema } = require("@apollo/subgraph");
 const { ApolloServerPluginInlineTraceDisabled } = require("apollo-server-core");
+const { allUsers, findUser } = require("./lib");
 
 const typeDefs = gql`
   type User {
@@ -11,22 +11,25 @@ const typeDefs = gql`
   }
 
   type Query {
-    allUsers(id: ID): [User!]!
+    allUsers: [User!]!
     user(id: ID!): User!
   }
 `;
 
 const resolvers = {
   Query: {
-    allUsers: (root, { id }) =>
-      !id ? users : users.filter((user) => user.id === id),
-    user: (root, { id }) => users.find((user) => user.id === id),
+    allUsers: (_, __, { allUsers }) => allUsers(),
+    user: (_, { id }, { findUser }) => findUser(id),
   },
 };
 
 const server = new ApolloServer({
   schema: buildSubgraphSchema({ typeDefs, resolvers }),
   plugins: [ApolloServerPluginInlineTraceDisabled()],
+  context: (_) => ({
+    allUsers,
+    findUser,
+  }),
 });
 
 server.listen(process.env.PORT).then(({ url }) => {

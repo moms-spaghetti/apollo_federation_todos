@@ -12,9 +12,8 @@
   "dependencies": {
     "@apollo/federation-internals": "^2.0.0-alpha.4",
     "@apollo/gateway": "^2.0.0-alpha.4",
-    "@apollo/query-graphs": "^2.0.0-alpha.4",
     "apollo-server": "^3.6.2",
-    "graphql": "15.5.3",
+    "graphql": "^16.3.0",
     "node-fetch": "^2.6.1"
   },
   "devDependencies": {

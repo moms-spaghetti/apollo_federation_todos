@@ -10,7 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@apollo/subgraph": "^0.1.5",
+    "@apollo/subgraph": "^0.1.4",
     "apollo-server": "^3.5.0",
     "graphql": "^15.7.2"
   },
